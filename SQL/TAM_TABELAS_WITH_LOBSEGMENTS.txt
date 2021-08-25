@@ -1,0 +1,16 @@
+SELECT * FROM
+ (select a.OWNER,
+ a.SEGMENT_NAME,
+ a.SEGMENT_TYPE,
+ a.BYTES/1024/1024/1024 GB,
+ a.TABLESPACE_NAME,
+ b.TABLE_NAME,
+ b.COLUMN_NAME,
+ b.INDEX_NAME
+ from
+ dba_segments a
+   left join DBA_LOBS  b on b. owner = a. owner
+      and b.segment_name = a.segment_name
+ order by 4 desc ) WHERE
+ owner = 'CIGAMTESTE' AND 
+ ROWNUM <= 50;
